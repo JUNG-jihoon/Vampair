@@ -56,7 +56,9 @@ public class Item : MonoBehaviour
 
     private void LateUpdate()
     {
-            textLevel.text = "LV."+(level+1);
+        if (!GameManager.instance.isLive)
+            return;
+        textLevel.text = "LV."+(level+1);
     }
 
     public void OnClick()

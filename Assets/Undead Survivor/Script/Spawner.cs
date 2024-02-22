@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -16,6 +17,8 @@ public class Spawner : MonoBehaviour
     }
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
         timer += Time.deltaTime;
         level = Mathf.Min(Mathf.FloorToInt(GameManager.instance.gameTime / 10f), enemySetting.Length - 1); //시간이 지나면 그에 따른 적 생성
 

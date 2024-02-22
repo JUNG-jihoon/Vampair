@@ -16,7 +16,8 @@ public class Follow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rect.position = Camera.main.WorldToScreenPoint(GameManager.instance.player.transform.position);
-            ;
+        if (!GameManager.instance.isLive)
+            return;
+        rect.position = Camera.main.WorldToScreenPoint(GameManager.instance.player.transform.position);;
     }
 }

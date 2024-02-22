@@ -31,6 +31,8 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
         if (!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))//죽엇으면 종료
             return;
         
@@ -42,6 +44,8 @@ public class Enemy : MonoBehaviour
 
     private void LateUpdate()//왼쪽 오른쪽 방향 돌리기
     {
+        if (!GameManager.instance.isLive)
+            return;
         if (!isLive)
             return;
         spriter.flipX = target.position.x < rigid.position.x;
