@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         health = maxHealth;
 
         uiLevelUP.Select(0);
-        isLive = true;
+        Resume();
     }
     public void GameOver()
     {
@@ -94,6 +94,8 @@ public class GameManager : MonoBehaviour
 
     public void GetExp()
     {
+        if(!isLive) 
+            return; 
         exp++;
         if(exp == nextExp[Mathf.Min(level,nextExp.Length-1)])
         {
