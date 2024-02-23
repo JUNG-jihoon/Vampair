@@ -17,6 +17,7 @@ public class LevelUP : MonoBehaviour
 
     public void show()
     {
+        Next();
         rect.localScale = Vector3.one;
         GameManager.instance.Stop();
     }
@@ -47,13 +48,16 @@ public class LevelUP : MonoBehaviour
                 break;
         }
 
-
         for( int index=0; index< ran.Length; index++)
         {
             Item ranItem = itmes[ran[index]];
 
             //만렙 아이템이ㅡ 경우는 소비아이템으로 대체
             if(ranItem.level == ranItem.data.damages.Length)
+            {
+                itmes[4].gameObject.SetActive(true);
+            }
+            else
             {
                 ranItem.gameObject.SetActive(true);
             }

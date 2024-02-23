@@ -39,7 +39,6 @@ public class PoolManager : MonoBehaviour
         {
             select = Instantiate(Prefabs[index], transform);
             pools[index].Add(select);
-            Debug.Log(GetComponentsInChildren<Transform>().Length);
         }
 
 
