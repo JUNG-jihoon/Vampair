@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class GameManager : MonoBehaviour
     public float maxGameTime = 2 * 10f;
 
     [Header("게임 정보")]
-    public int health;
-    public int maxHealth = 100;
+    public float health;
+    public float maxHealth = 100;
     public int level;
     public int kill;
     public int exp;
@@ -22,16 +23,59 @@ public class GameManager : MonoBehaviour
     public PoolManager pool;
     public Player player;
     public LevelUP uiLevelUP;
+    public Result uiResult;
+    public GameObject enemyCleaner;
 
     private void Awake()
     {
         instance = this;
     }
-    private void Start()
+
+    public void GameStart()
     {
         health = maxHealth;
 
         uiLevelUP.Select(0);
+        isLive = true;
+    }
+    public void GameOver()
+    {
+        StartCoroutine(GameOverRoutine());
+    }
+    IEnumerator GameOverRoutine()
+    {
+        isLive = false;
+        yield return new WaitForSeconds(0.5f);
+
+        uiResult.gameObject.SetActive(true);
+        uiResult.Lose();
+        Stop();
+    }
+    public void GameVictory()
+    {
+        StartCoroutine(GameVictoryRoutine());
+    }
+    IEnumerator GameVictoryRoutine()
+    {
+        isLive = false;
+        enemyCleaner.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        uiResult.gameObject.SetActive(true);
+        uiResult.Win();
+        Stop();
+    }
+
+    public void GameRetry()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private void Start()
+    {
+        health = maxHealth;
+
     }
     void Update()//타이머
     {
@@ -43,6 +87,7 @@ public class GameManager : MonoBehaviour
         if (gameTime > maxGameTime)
         {
             gameTime = maxGameTime;
+            GameVictory();
         }
 
     }
