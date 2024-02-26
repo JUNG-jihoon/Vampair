@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
+        speed *= Character.Speed;
         anim.runtimeAnimatorController = animCon[GameManager.instance.playerId];
     }
 
@@ -62,7 +63,7 @@ public class Player : MonoBehaviour
             return;
         GameManager.instance.health -= Time.deltaTime* 10;
 
-        if(GameManager.instance.health < 0)
+        if(GameManager.instance.health <= 0)
         {
             for(int index = 2; index < transform.childCount; index++)
             {
@@ -70,6 +71,7 @@ public class Player : MonoBehaviour
             }
 
             anim.SetTrigger("Dead");
+            Debug.Log("Á×À½");
             GameManager.instance.GameOver();
         }
     }
